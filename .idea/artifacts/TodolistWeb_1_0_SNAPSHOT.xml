@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TodolistWeb-1.0-SNAPSHOT">
+    <output-path>D:\IntelliJIDEA\TodolistWeb\build\libs</output-path>
+    <root id="archive" name="TodolistWeb-1.0-SNAPSHOT.jar">
+      <element id="module-output" name="TodolistWeb.main" />
+    </root>
+  </artifact>
+</component>
