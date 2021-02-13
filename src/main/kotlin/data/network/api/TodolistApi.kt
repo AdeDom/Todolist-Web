@@ -6,7 +6,7 @@ import io.ktor.client.request.*
 
 class TodolistApi {
 
-    suspend fun getTodolistAll(): TodolistAllResponse {
+    suspend fun fetchTodolistAll(): TodolistAllResponse {
         return client.get("${BASE_URL}api/todolist/todolist-all")
     }
 
