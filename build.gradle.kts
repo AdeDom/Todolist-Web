@@ -1,5 +1,14 @@
+buildscript {
+    repositories { jcenter() }
+
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-serialization:1.4.30")
+    }
+}
+
 plugins {
     kotlin("js") version "1.4.30"
+    kotlin("plugin.serialization") version "1.4.30"
 }
 
 group = "com.adedom.todolistweb"
@@ -19,6 +28,16 @@ dependencies {
     implementation("org.jetbrains:kotlin-react-router-dom:5.1.2-pre.113-kotlin-1.4.0")
     implementation("org.jetbrains:kotlin-redux:4.0.0-pre.113-kotlin-1.4.0")
     implementation("org.jetbrains:kotlin-react-redux:5.0.7-pre.113-kotlin-1.4.0")
+
+    val ktorVersion = "1.5.1"
+    implementation("io.ktor:ktor-client-js:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging-js:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+
+    val coroutines = "1.4.2"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutines")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines")
+
 }
 
 kotlin {

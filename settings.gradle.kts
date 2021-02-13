@@ -1,3 +1,3 @@
 
-rootProject.name = "TodolistWeb"
+rootProject.name = "Todolist-Web"
 
