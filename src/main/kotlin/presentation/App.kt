@@ -129,12 +129,38 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
             td {
                 state.todolistAll.forEach { todolistAll ->
                     button {
-                        todolistDetail(todolistAll)
+                        p { +"todolistId : ${todolistAll.todolistId}" }
+                        p { +"title : ${todolistAll.title}" }
+                        p { +"content : ${todolistAll.content}" }
+
+                        if (todolistAll.updatedLong == null) {
+                            p { +Utils.getDateTimeFormatString(todolistAll.createdLong) }
+                        } else {
+                            p { +Utils.getDateTimeFormatString(todolistAll.updatedLong) }
+                        }
 
                         attrs {
                             onClickFunction = {
                                 setState {
                                     todolistDetail = todolistAll
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        +"x"
+                        attrs {
+                            onClickFunction = {
+                                scope.launch {
+                                    if (window.confirm("Remove todolist title : ${todolistAll.title}")) {
+                                        val response = api.removeTodolist(todolistAll.todolistId)
+                                        if (response.success) {
+                                            fetchTodolistAll()
+                                            window.alert("OK : ${response.message}")
+                                        } else {
+                                            window.alert("Error : ${response.message}")
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -145,21 +171,17 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
             }
             td {
                 state.todolistDetail?.let { todolistAll ->
-                    todolistDetail(todolistAll)
+                    p { +"todolistId : ${todolistAll.todolistId}" }
+                    p { +"title : ${todolistAll.title}" }
+                    p { +"content : ${todolistAll.content}" }
+
+                    if (todolistAll.updatedLong == null) {
+                        p { +Utils.getDateTimeFormatString(todolistAll.createdLong) }
+                    } else {
+                        p { +Utils.getDateTimeFormatString(todolistAll.updatedLong) }
+                    }
                 }
             }
-        }
-    }
-
-    private fun RBuilder.todolistDetail(todolistAll: TodolistAll) {
-        p { +"todolistId : ${todolistAll.todolistId}" }
-        p { +"title : ${todolistAll.title}" }
-        p { +"content : ${todolistAll.content}" }
-
-        if (todolistAll.updatedLong == null) {
-            p { +Utils.getDateTimeFormatString(todolistAll.createdLong) }
-        } else {
-            p { +Utils.getDateTimeFormatString(todolistAll.updatedLong) }
         }
     }
 
