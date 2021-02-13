@@ -1,5 +1,6 @@
-package data
+package data.models.response
 
+import data.models.model.TodolistAll
 import kotlinx.serialization.Serializable
 
 @Serializable

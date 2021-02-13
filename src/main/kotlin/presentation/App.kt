@@ -1,5 +1,7 @@
-import data.TodolistAll
-import data.TodolistApiImpl
+package presentation
+
+import data.models.model.TodolistAll
+import data.network.api.TodolistApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import react.*
@@ -18,7 +20,7 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
 
     init {
         MainScope().launch {
-            val response = TodolistApiImpl().getTodolistAll()
+            val response = TodolistApi().getTodolistAll()
             if (response.success) {
                 setState {
                     todolistAll = response.todolistAll

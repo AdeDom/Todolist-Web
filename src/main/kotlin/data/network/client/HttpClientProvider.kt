@@ -1,4 +1,4 @@
-package data
+package data.network.client
 
 import io.ktor.client.*
 import io.ktor.client.engine.js.*
