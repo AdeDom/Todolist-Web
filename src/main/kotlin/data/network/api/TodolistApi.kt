@@ -1,6 +1,7 @@
 package data.network.api
 
 import data.models.request.AddTodolistRequest
+import data.models.request.ChangeTodolistRequest
 import data.models.response.BaseResponse
 import data.models.response.TodolistAllResponse
 import data.network.client.client
@@ -20,6 +21,15 @@ class TodolistApi {
         return client.post("${BASE_URL}api/todolist/add-todolist") {
             body = TextContent(
                 text = Json.encodeToString(addTodolistRequest),
+                contentType = ContentType.Application.Json
+            )
+        }
+    }
+
+    suspend fun changeTodolist(changeTodolistRequest: ChangeTodolistRequest): BaseResponse {
+        return client.put("${BASE_URL}api/todolist/change-todolist") {
+            body = TextContent(
+                text = Json.encodeToString(changeTodolistRequest),
                 contentType = ContentType.Application.Json
             )
         }
