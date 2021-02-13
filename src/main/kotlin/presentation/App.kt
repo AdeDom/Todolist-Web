@@ -1,6 +1,7 @@
 package presentation
 
 import data.models.model.TodolistAll
+import data.models.request.AddTodolistRequest
 import data.network.api.TodolistApi
 import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
@@ -29,6 +30,10 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
     private val api = TodolistApi()
 
     init {
+        fetchTodolistAll()
+    }
+
+    private fun fetchTodolistAll() {
         scope.launch {
             val response = api.fetchTodolistAll()
             if (response.success) {
@@ -91,11 +96,32 @@ class App(props: AppProps) : RComponent<AppProps, AppState>(props) {
                 +"Add todolist"
                 attrs {
                     onClickFunction = {
-                        val todolistId = Date().getTime()
-                        val title = state.title
-                        val content = state.content
-
-                        window.alert("$todolistId, $title, $content")
+                        when {
+                            state.title.isBlank() -> window.alert("Please enter title")
+                            state.content.isBlank() -> window.alert("Please enter content")
+                            else -> {
+                                scope.launch {
+                                    if (window.confirm("Add todolist")) {
+                                        val request = AddTodolistRequest(
+                                            todolistId = Date().getTime().toString(),
+                                            title = state.title,
+                                            content = state.content,
+                                        )
+                                        setState {
+                                            title = ""
+                                            content = ""
+                                        }
+                                        val response = api.addTodolist(request)
+                                        if (response.success) {
+                                            fetchTodolistAll()
+                                            window.alert("OK : ${response.message}")
+                                        } else {
+                                            window.alert("Error : ${response.message}")
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
