@@ -1,14 +1,6 @@
-buildscript {
-    repositories { jcenter() }
-
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-serialization:1.4.30")
-    }
-}
-
 plugins {
     kotlin("js") version "1.4.30"
-    kotlin("plugin.serialization") version "1.4.30"
+    kotlin("plugin.serialization") version "1.4.10"
 }
 
 group = "com.adedom.todolistweb"
