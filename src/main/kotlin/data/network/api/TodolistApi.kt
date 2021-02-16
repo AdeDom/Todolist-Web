@@ -6,10 +6,7 @@ import data.models.response.BaseResponse
 import data.models.response.TodolistAllResponse
 import data.network.client.client
 import io.ktor.client.request.*
-import io.ktor.content.*
 import io.ktor.http.*
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 class TodolistApi {
 
@@ -19,19 +16,15 @@ class TodolistApi {
 
     suspend fun addTodolist(addTodolistRequest: AddTodolistRequest): BaseResponse {
         return client.post("${BASE_URL}api/todolist/add-todolist") {
-            body = TextContent(
-                text = Json.encodeToString(addTodolistRequest),
-                contentType = ContentType.Application.Json
-            )
+            contentType(ContentType.Application.Json)
+            body = addTodolistRequest
         }
     }
 
     suspend fun changeTodolist(changeTodolistRequest: ChangeTodolistRequest): BaseResponse {
         return client.put("${BASE_URL}api/todolist/change-todolist") {
-            body = TextContent(
-                text = Json.encodeToString(changeTodolistRequest),
-                contentType = ContentType.Application.Json
-            )
+            contentType(ContentType.Application.Json)
+            body = changeTodolistRequest
         }
     }
 
